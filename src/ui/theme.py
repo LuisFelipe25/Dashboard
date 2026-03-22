@@ -294,6 +294,28 @@ def inject_global_styles(hero_bg_path: Path) -> None:
                 background: linear-gradient(180deg, rgba(8,14,28,0.92), rgba(6,10,20,0.98));
                 border-right: 1px solid rgba(255,255,255,0.06);
             }}
+            [data-testid="stRadio"] {{
+                background: rgba(14, 22, 40, 0.62);
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 18px;
+                padding: 0.65rem 0.8rem 0.25rem;
+                margin-bottom: 0.75rem;
+            }}
+            [data-testid="stRadio"] label {{
+                font-weight: 600;
+            }}
+            [data-testid="stToggle"] {{
+                background: rgba(14, 22, 40, 0.62);
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 18px;
+                padding: 0.9rem 1rem;
+                margin-top: 1.7rem;
+            }}
+            [data-testid="stDataFrame"] {{
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 18px;
+                overflow: hidden;
+            }}
         </style>
         """,
         unsafe_allow_html=True,

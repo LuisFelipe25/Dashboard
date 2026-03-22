@@ -4,6 +4,8 @@ Premium Streamlit dashboard for commercial presentation of `Signal 1` and `Signa
 
 The repository is ready for public deployment and safe to run outside your local network. If local research artifacts are present, the app uses them. If they are missing, the app automatically falls back to a generated demo dataset so deployment still works without machine-specific folders.
 
+The commercial dashboard is normalized to an initial capital of `1,000 USD`.
+
 ## Public deploy status
 
 This project is prepared for:

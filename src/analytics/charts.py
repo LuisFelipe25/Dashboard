@@ -53,6 +53,104 @@ def equity_curve_chart(
     return _base_layout(fig, height)
 
 
+def market_story_chart(
+    prices: pd.DataFrame,
+    trades: pd.DataFrame,
+    equity_curve: pd.DataFrame,
+    signal_label: str,
+    accent: str,
+    include_benchmark: bool = True,
+    height: int = 700,
+) -> go.Figure:
+    fig = make_subplots(
+        rows=2,
+        cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.05,
+        row_heights=[0.62, 0.38],
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=prices["timestamp"],
+            y=prices["close"],
+            mode="lines",
+            name="Gold price",
+            line=dict(color="#E7EEF8", width=2.6, shape="spline", smoothing=1.05),
+            fill="tozeroy",
+            fillcolor="rgba(231, 238, 248, 0.05)",
+            hovertemplate="<b>%{x|%Y-%m-%d}</b><br>Gold: %{y:.2f}<extra></extra>",
+        ),
+        row=1,
+        col=1,
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=trades["entry_time"],
+            y=trades["entry_price"],
+            mode="markers",
+            name="Buy",
+            marker=dict(color=accent, size=10, symbol="triangle-up", line=dict(color="#081018", width=1)),
+            hovertemplate="<b>%{x|%Y-%m-%d %H:%M}</b><br>Buy: %{y:.2f}<extra></extra>",
+        ),
+        row=1,
+        col=1,
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=trades["exit_time"],
+            y=trades["exit_price"],
+            mode="markers",
+            name="Sell",
+            marker=dict(
+                color=np.where(trades["pnl_usd"] >= 0, "#41E1B7", "#FF7A8A"),
+                size=9,
+                symbol="circle",
+                line=dict(color="#081018", width=1),
+            ),
+            customdata=np.c_[trades["pnl_usd"], trades["pips"]],
+            hovertemplate=(
+                "<b>%{x|%Y-%m-%d %H:%M}</b><br>"
+                "Sell: %{y:.2f}<br>"
+                "PnL: %{customdata[0]:.2f} USD<br>"
+                "Pips: %{customdata[1]:.0f}<extra></extra>"
+            ),
+        ),
+        row=1,
+        col=1,
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=equity_curve["timestamp"],
+            y=equity_curve["equity"],
+            mode="lines",
+            name=f"{signal_label} equity",
+            line=dict(color=accent, width=3, shape="spline", smoothing=0.95),
+            fill="tozeroy",
+            fillcolor="rgba(66, 215, 199, 0.10)",
+            hovertemplate="<b>%{x|%Y-%m-%d}</b><br>Equity: %{y:.2f} USD<extra></extra>",
+        ),
+        row=2,
+        col=1,
+    )
+    if include_benchmark:
+        fig.add_trace(
+            go.Scatter(
+                x=equity_curve["timestamp"],
+                y=equity_curve["benchmark"],
+                mode="lines",
+                name="Benchmark",
+                line=dict(color="#F7B955", width=1.8, dash="dot"),
+                hovertemplate="<b>%{x|%Y-%m-%d}</b><br>Benchmark: %{y:.2f} USD<extra></extra>",
+            ),
+            row=2,
+            col=1,
+        )
+    fig.update_yaxes(title="Gold", row=1, col=1)
+    fig.update_yaxes(title="Equity", row=2, col=1)
+    fig.update_layout(hovermode="x unified", transition_duration=350)
+    return _base_layout(fig, height)
+
+
 def candlestick_trade_chart(
     prices: pd.DataFrame,
     trades: pd.DataFrame,

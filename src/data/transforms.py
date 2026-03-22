@@ -35,14 +35,15 @@ def build_narrative(
 ) -> str:
     strongest_window = max(windows.items(), key=lambda item: item[1]["return_pct"])
     return (
-        f"{signal_label} is presented as a {status.lower()} commercial strategy profile. "
-        f"{signal_description} Over the evaluated sample it delivered {metrics['total_return_pct']:.1f}% "
-        f"on normalized demo capital, with a Sharpe ratio of {metrics['sharpe_ratio']:.2f} and "
-        f"a maximum drawdown of {abs(metrics['max_drawdown_pct']):.1f}%. "
-        f"The strongest recent window was {strongest_window[0]}, where the strategy produced "
-        f"{strongest_window[1]['return_pct']:.1f}% with {strongest_window[1]['trades']} executed trades. "
-        f"The current positioning story is supported by {metrics['profit_factor']:.2f} profit factor, "
-        f"{metrics['win_rate_pct']:.1f}% win rate and {metrics['net_pips']:.0f} net pips."
+        f"{signal_label} is presented as a {status.lower()} investor-facing signal profile. "
+        f"{signal_description} On a normalized 1,000 USD presentation account, the evaluated sample "
+        f"shows {metrics['total_return_pct']:.1f}% cumulative return with a Sharpe ratio of "
+        f"{metrics['sharpe_ratio']:.2f} and a maximum drawdown of {abs(metrics['max_drawdown_pct']):.1f}%. "
+        f"The strongest recent window was {strongest_window[0]}, where the signal added "
+        f"{strongest_window[1]['return_pct']:.1f}% across {strongest_window[1]['trades']} executed trades. "
+        f"The emphasis here is not aggressive compounding, but consistency of trade selection, "
+        f"controlled capital presentation and a readable execution profile backed by "
+        f"{metrics['profit_factor']:.2f} profit factor and {metrics['win_rate_pct']:.1f}% win rate."
     )
 
 
@@ -50,7 +51,7 @@ def build_provenance_notes(real_artifacts_used: bool) -> list[str]:
     if real_artifacts_used:
         return [
             "Signal timing, entries and exits are loaded from local strategy artifacts when they exist.",
-            "Portfolio capital is normalized to a 10,000 USD demo allocation for investor-facing presentation.",
+            "Portfolio capital is normalized to a 1,000 USD presentation allocation for investor-facing review.",
             "If any artifact is missing, the app falls back to a generated dataset without breaking the UX.",
         ]
     return [

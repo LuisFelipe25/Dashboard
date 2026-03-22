@@ -19,7 +19,7 @@ class SignalStyle:
 @dataclass(frozen=True)
 class AppSettings:
     project_root: Path
-    initial_capital: float = 10_000.0
+    initial_capital: float = 1_000.0
     pip_factor: float = 10.0
     chart_lookback_days: int = 120
     primary_chart_height: int = 440
@@ -39,11 +39,11 @@ class AppSettings:
                 accent="#42D7C7",
                 soft_accent="rgba(66, 215, 199, 0.16)",
                 description=(
-                    "High-coverage baseline flow focused on opportunity capture and "
-                    "broad market participation."
+                    "Core signal profile built to maintain broad market coverage with "
+                    "a more measured capital footprint."
                 ),
-                headline="Broader market participation with institutional-style monitoring.",
-                scale_factor=4.8,
+                headline="Broader market participation with a disciplined presentation profile.",
+                scale_factor=0.45,
                 status_hint="Monitored",
             ),
             "baseline_plus_ml_filter": SignalStyle(
@@ -53,10 +53,10 @@ class AppSettings:
                 soft_accent="rgba(247, 185, 85, 0.16)",
                 description=(
                     "Selective baseline enhanced with an ML validation layer to reduce "
-                    "noise and focus capital on higher-conviction setups."
+                    "noise and prioritize cleaner setups."
                 ),
-                headline="Selective flow with an ML filter designed to reduce noise.",
-                scale_factor=8.0,
+                headline="Selective flow with an ML filter and a more curated execution profile.",
+                scale_factor=0.8,
                 status_hint="Monitored",
             ),
         }
