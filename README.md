@@ -18,6 +18,10 @@ Main entrypoint:
 
 - `app.py`
 
+Compatibility entrypoint also included:
+
+- `streamlit_app.py`
+
 Deploy files included:
 
 - `requirements.txt`
@@ -137,6 +141,8 @@ In the Streamlit dashboard:
 ```text
 app.py
 ```
+
+If Streamlit suggests `streamlit_app.py` by default, that file is also included as a compatibility wrapper and will work too. The preferred entrypoint remains `app.py`.
 
 5. Click `Deploy`
 
